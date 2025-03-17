@@ -45,7 +45,28 @@ public class HomeActivity extends AppCompatActivity {
         cardItemList = new ArrayList<>();
         // Populate 8 sample card items (for a 2 x 4 grid)
         for (int i = 1; i <= 8; i++) {
-            cardItemList.add(new CardItem("Card " + i, R.drawable.ic_launcher_foreground));
+            switch (i) {
+                case 1:
+                    cardItemList.add(new CardItem("Set Alaram", R.drawable.set_alaram));
+                    break;
+                case 2:
+                    cardItemList.add(new CardItem("Silient Phone", R.drawable.silient_write));
+                    break;
+                case 3:
+                    cardItemList.add(new CardItem("Card 3", R.drawable.ic_launcher_foreground));
+                    break;
+                case 4:
+                    cardItemList.add(new CardItem("Card 4", R.drawable.ic_launcher_foreground));
+                    break;
+                case 5:
+                    cardItemList.add(new CardItem("Card 5", R.drawable.ic_launcher_foreground));
+                    break;
+                case 6:
+                    cardItemList.add(new CardItem("Card 6", R.drawable.ic_launcher_foreground));
+                    break;
+                default:
+                    cardItemList.add(new CardItem("Card " + i, R.drawable.ic_launcher_foreground));
+            }
         }
 
         adapter = new CardAdapter(cardItemList);
