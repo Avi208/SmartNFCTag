@@ -26,10 +26,10 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (isLoggedIn) {
                     // If user is already logged in, go to HomeActivity
-                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    startActivity(new Intent(SplashActivity.this, InformationPage.class));
                 } else {
                     // Otherwise, navigate to LoginActivity
-                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    startActivity(new Intent(SplashActivity.this, InformationPage.class));
                 }
                 finish();
             }

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SmartNFCTag</string>
+    <string name="write"><b>NFC Technology: Unlocking Powerful Possibilities. </b> \n\nNear Field Communication (NFC) is a powerful technology that allows
+        seamless data transfer between devices. With an Android phone, you can easily write information to NFC stickers,
+        enabling quick and efficient sharing of data. Here are some key points to consider \n\nConvenience: NFC stickers can store various types of data, such as URLs, contact information, and text messages, making them versatile for different applications.\nEase of Use: Writing to NFC stickers is straightforward and can be done with just a few taps on your Android phone.\nSecurity: NFC technology includes encryption features, ensuring that the data transferred is secure and protected.\nAutomation: NFC stickers can trigger actions on your phone, such as opening apps or changing settings, enhancing your daily routines.\nCompatibility: Most modern Android phones support NFC, making it accessible to a wide range of users.\nInnovation: NFC technology continues to evolve, offering new and exciting possibilities for personal and professional use.\n</string>
+    <string name="read"><b>Enable NFC on Your Phone: </b> Go to your phone\'s
+    settings and ensure that NFC is turned on. This is usually found under \"Connections\" or Wireless and Networks.\n\n <b>Open an NFC Reader App:</b> Launch an NFC reader app on your phone. Many Android phones come h a built-in NFC reader,
+        or you can download one from the Google Play Store.\n\n<b>Tap the NFC Tag:</b> Hold the back of your phone close to the NFC tag.
+        Your phone will automatically detect and read the information stored on the tag, displaying it on your screen.</string>
+    <string name="overwrite"><b>Enable NFC and Install an NFC Writing App:</b>\n Ensure that NFC is enabled on your phone by going to the settings and turning it on.
+        Download and install an NFC writing app from the Google Play Store,
+        such as NFC Tools or NXP TagWriter.\n\n<b>Prepare the Data to Write: </b>Open the NFC writing app and select the type of data you want to write to the NFC tag, such as a URL,
+        text, or contact information. Enter the data in the app.\n\n<b>Write to the NFC Tag:</b> Hold the NFC tag close to the back of your phone. Follow the app\'s instructions to write the data to the tag. The app will confirm once the writing process is complete.</string>
 </resources>
