@@ -1,6 +1,14 @@
 package com.example.smartnfctag;
 
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -16,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CardAdapter adapter;
     private List<CardItem> cardItemList;
+    private NfcAdapter nfcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +50,67 @@ public class HomeActivity extends AppCompatActivity {
 
         adapter = new CardAdapter(cardItemList);
         recyclerView.setAdapter(adapter);
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        if (nfcAdapter == null) {
+            Toast.makeText(this, "NFC is not supported on this device!", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            if (tag != null) {
+                readNfcTag(tag);
+            }
+        }
+    }
+
+    // Read NFC tag and display content in Toast
+    private void readNfcTag(Tag tag) {
+        Ndef ndef = Ndef.get(tag);
+        if (ndef != null) {
+            try {
+                ndef.connect();
+                NdefMessage ndefMessage = ndef.getNdefMessage();
+                NdefRecord[] records = ndefMessage.getRecords();
+
+                for (NdefRecord record : records) {
+                    if (Arrays.equals(record.getType(), NdefRecord.RTD_TEXT)) {
+                        String payload = new String(record.getPayload(), "UTF-8");
+                        Toast.makeText(this, "NFC Message: " + payload, Toast.LENGTH_LONG).show();
+                    }
+                }
+                ndef.close();
+            } catch (Exception e) {
+                Toast.makeText(this, "Error reading NFC tag!", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // prepare pending intent
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                PendingIntent.FLAG_MUTABLE // or FLAG_IMMUTABLE depending on your use case
+        );        // enable foreground dispatch
+        if (nfcAdapter != null) {
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
+        }
+    }
+
+    // Disable foreground NFC dispatch
+    @Override
+    protected void onPause() {
+        super.onPause();
+        nfcAdapter.disableForegroundDispatch(this);
     }
 }

@@ -1,15 +1,21 @@
 package com.example.smartnfctag;
 
-import android.content.Intent;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
@@ -39,11 +45,22 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Clicked " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                if (position==0) {
+                Toast.makeText(v.getContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
+                switch (position){
+                    case 1:
+                        NfcAnimationActivity.showBottomSheet(v.getContext());
+                        break;
+                    case 2:
+                        // Navigate to NFCWriteActivity class.
+                      //  v.getContext().startActivity(new Intent(v.getContext(), NFCWriteActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+                /*if (position==0) {
                     // Navigate to NFCActivity class.
                     v.getContext().startActivity(new Intent(v.getContext(), NFCActivity.class));
-                }
+                }*/
                 
             }
         });
@@ -64,4 +81,5 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             cardText = itemView.findViewById(R.id.card_text);
         }
     }
+
 }
