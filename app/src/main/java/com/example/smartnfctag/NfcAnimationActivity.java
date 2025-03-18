@@ -2,7 +2,9 @@ package com.example.smartnfctag;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -21,6 +23,11 @@ public class NfcAnimationActivity {
     private static ImageView phoneImage;
     private static ImageView nfcTagImage;
     private static NfcAdapter nfcAdapter;
+
+
+    private PendingIntent pendingIntent;
+    private IntentFilter[] writeTagFilters;
+    private Tag detectedTag;
 
     public static void showBottomSheet(Context context) {
         View view = View.inflate(context, R.layout.dialog_nfc_bottom_sheet, null);
@@ -62,6 +69,7 @@ public class NfcAnimationActivity {
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playSequentially(moveY, scaleX, scaleY, fadeIn);
         animatorSet.start();
+
     }
 
     // Handle NFC Read
