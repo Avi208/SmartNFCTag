@@ -16,4 +16,5 @@
         \n Follow on-screen instructions and grant permissions if needed. \n\n\n <b> Navigate to Youtube app to Play Android Video.</b> </string>
     <string name="wifi_off_on">Enable NFC from Settings → Connections (or Network and Internet) and turn it on. Make sure the NFC tag is properly programmed and placed in an accessible spot. Hold your device near the tag, align the NFC sensor, and wait for detection. Your device should automatically open the app—confirm if prompted.
         \n Follow on-screen instructions and grant permissions if needed. \n\n\n <b>Tap to NFC stickets which will trun off Phone WIFI singls.</b></string>
+    <string name="bright_low_high">Step 1: Add a SeekBar to your layout for adjusting screen brightness.\nStep 2: Use window attributes to modify the screen brightness based on the SeekBar value, ranging from minimum to maximum brightness.\nStep 3: Update the screen brightness dynamically as the SeekBar value changes.</string>
 </resources>
