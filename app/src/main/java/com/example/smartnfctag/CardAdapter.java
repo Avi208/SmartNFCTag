@@ -2,6 +2,7 @@ package com.example.smartnfctag;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.view.LayoutInflater;
@@ -15,6 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartnfctag.SubFunctionality.MakeCall;
+import com.example.smartnfctag.SubFunctionality.NavigateApp;
+import com.example.smartnfctag.SubFunctionality.NfcAnimationActivity;
+import com.example.smartnfctag.SubFunctionality.WifiOff;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
@@ -51,8 +56,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                         NfcAnimationActivity.showBottomSheet(v.getContext());
                         break;
                     case 2:
-                        // Navigate to NFCWriteActivity class.
-                      //  v.getContext().startActivity(new Intent(v.getContext(), NFCWriteActivity.class));
+                        //call MakeCall activity
+                        v.getContext().startActivity(new Intent(v.getContext(), MakeCall.class));
+                        break;
+                    case 3:
+                        // call NavigationActivity activity
+                        v.getContext().startActivity(new Intent(v.getContext(), NavigateApp.class));
+                        break;
+                    case 5:
+                        // call SendSMS activity
+                        v.getContext().startActivity(new Intent(v.getContext(), WifiOff.class));
                         break;
                     default:
                         break;

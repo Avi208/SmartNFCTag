@@ -70,19 +70,25 @@ public class HomeActivity extends AppCompatActivity {
                     cardItemList.add(new CardItem("Silient Phone", R.drawable.silient_write));
                     break;
                 case 3:
-                    cardItemList.add(new CardItem("Card 3", R.drawable.ic_launcher_foreground));
+                    cardItemList.add(new CardItem("Make Call", R.drawable.make_call));
                     break;
                 case 4:
-                    cardItemList.add(new CardItem("Card 4", R.drawable.ic_launcher_foreground));
+                    cardItemList.add(new CardItem("Navigate APP", R.drawable.navigate_app));
                     break;
                 case 5:
-                    cardItemList.add(new CardItem("Card 5", R.drawable.ic_launcher_foreground));
+                    cardItemList.add(new CardItem("Send SMS", R.drawable.send_sms));
                     break;
                 case 6:
-                    cardItemList.add(new CardItem("Card 6", R.drawable.ic_launcher_foreground));
+                    cardItemList.add(new CardItem("WIFI off", R.drawable.wifi_off));
+                    break;
+                case 7:
+                    cardItemList.add(new CardItem("Send Contact/Business card", R.drawable.contact_send));
+                    break;
+                case 8:
+                    cardItemList.add(new CardItem("Screen Brightness", R.drawable.screen_brightness));
                     break;
                 default:
-                    cardItemList.add(new CardItem("Card " + i, R.drawable.ic_launcher_foreground));
+                    cardItemList.add(new CardItem(" Default " + i, R.drawable.ic_launcher_foreground));
             }
         }
 
