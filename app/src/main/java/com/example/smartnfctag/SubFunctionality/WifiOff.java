@@ -158,8 +158,21 @@ public class WifiOff extends AppCompatActivity {
                 connectivityManager.requestNetwork(new NetworkRequest.Builder().build(), new ConnectivityManager.NetworkCallback() {
                     @Override
                     public void onAvailable(Network network) {
+                        // make wifi off
+                        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                        wifiManager.setWifiEnabled(false);
+
                         connectivityManager.bindProcessToNetwork(null); // Disconnect network
-                        Toast.makeText(WifiOff.this, "Wi-Fi disconnected (Android 10+)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.wifi_instruction, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLost(@NonNull Network network) {
+                        super.onLost(network);
+                        Toast.makeText(getApplicationContext(), "Wi-Fi network lost", Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
