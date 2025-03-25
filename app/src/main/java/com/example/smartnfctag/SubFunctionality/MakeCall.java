@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,12 +37,14 @@ public class MakeCall extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private IntentFilter[] intentFiltersArray;
     private static final int REQUEST_CALL_PHONE = 1;
+    private EditText phoneNumber;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.make_call);
+        phoneNumber= findViewById(R.id.et_input);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE);
@@ -104,7 +107,9 @@ public class MakeCall extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                makeCall("7204585776");
+                String phoneNumner = phoneNumber.getText().toString();
+
+                makeCall(phoneNumner);
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

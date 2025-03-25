@@ -32,8 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CardAdapter adapter;
     private List<CardItem> cardItemList;
-    private NfcAdapter nfcAdapter;
-    private static final int NOTIFICATION_POLICY_ACCESS_REQUEST_CODE = 100;
+
 
 
     @Override
@@ -47,13 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Optionally, you can set the title programmatically:
         // getSupportActionBar().setTitle("SmartNFC tag connect");
-        // Check if the app has Do Not Disturb access
-        if (!hasDoNotDisturbAccess()) {
-            // Request permission
-            requestDoNotDisturbAccess();
-        } else {
-            // Do your operation
-        }
+
         // Set up RecyclerView with a grid of 2 columns
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -93,137 +86,9 @@ public class HomeActivity extends AppCompatActivity {
 
         adapter = new CardAdapter(cardItemList);
         recyclerView.setAdapter(adapter);
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-        if (nfcAdapter == null) {
-            Toast.makeText(this, "NFC is not supported on this device!", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-    }
-    private boolean hasDoNotDisturbAccess() {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        return notificationManager.isNotificationPolicyAccessGranted();
-    }
-
-    private void requestDoNotDisturbAccess() {
-        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-        startActivityForResult(intent, NOTIFICATION_POLICY_ACCESS_REQUEST_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == NOTIFICATION_POLICY_ACCESS_REQUEST_CODE) {
-            if (hasDoNotDisturbAccess()) {
-                // Do your operation
-            } else {
-                // User denied access,
-            }
-        }
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if (detectedTag != null) {
-                readNfcTag(detectedTag);
-               // writeTag(detectedTag, "Silent Mode Trigger");
-            }
-        }
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-           Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if (detectedTag != null) {
-                writeTag(detectedTag, "Silent Mode Trigger");
-            }
-        }
-    }
-    private void writeTag(Tag tag, String message) {
-        NdefMessage ndefMessage = createNdefMessage(message);
-
-        try {
-            Ndef ndef = Ndef.get(tag);
-            if (ndef != null) {
-                ndef.connect();
-                if (ndef.isWritable()) {
-                    ndef.writeNdefMessage(ndefMessage);
-                    Toast.makeText(this, "Write to NFC successful!", Toast.LENGTH_SHORT).show();
-                    setPhoneToSilent();
-                } else {
-                    Toast.makeText(this, "NFC tag is read-only", Toast.LENGTH_SHORT).show();
-                }
-                ndef.close();
-            } else {
-                Toast.makeText(this, "NFC tag is not supported", Toast.LENGTH_SHORT).show();
-            }
-        } catch (IOException | FormatException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Write failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-    private NdefMessage createNdefMessage(String text) {
-        NdefRecord ndefRecord = NdefRecord.createTextRecord("en", text);
-        return new NdefMessage(new NdefRecord[]{ndefRecord});
-    }
-
-    private void setPhoneToSilent() {
-        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
-            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-            Toast.makeText(this, "Phone set to silent mode", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Failed to set phone to silent mode", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
-    // Read NFC tag and display content in Toast
-    private void readNfcTag(Tag tag) {
-        Ndef ndef = Ndef.get(tag);
-        if (ndef != null) {
-            try {
-                ndef.connect();
-                NdefMessage ndefMessage = ndef.getNdefMessage();
-                NdefRecord[] records = ndefMessage.getRecords();
 
-                for (NdefRecord record : records) {
-                    if (Arrays.equals(record.getType(), NdefRecord.RTD_TEXT)) {
-                        String payload = new String(record.getPayload(), "UTF-8");
-                        Toast.makeText(this, "NFC Message: " + payload, Toast.LENGTH_LONG).show();
-                    }
-                }
-                ndef.close();
-            } catch (Exception e) {
-                Toast.makeText(this, "Error reading NFC tag!", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
-        }
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        // prepare pending intent
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                this, 0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
-                PendingIntent.FLAG_MUTABLE // or FLAG_IMMUTABLE depending on your use case
-        );        // enable foreground dispatch
-        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        IntentFilter[] writeTagFilters = new IntentFilter[]{tagDetected};
-
-        if (nfcAdapter != null) {
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
-        }
-    }
-
-    // Disable foreground NFC dispatch
-    @Override
-    protected void onPause() {
-        super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
-    }
 }

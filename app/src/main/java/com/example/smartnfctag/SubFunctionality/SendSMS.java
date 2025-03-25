@@ -12,6 +12,8 @@ import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -31,12 +33,14 @@ public class SendSMS extends AppCompatActivity {
     private static final int REQUEST_CALL_PHONE = 1;
     private static final int REQUEST_WIFI_PERMISSION = 1;
     private int REQUEST_SMS_PERMISSION= 100;
+    private EditText phoneNumber;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_sms);
+        phoneNumber= findViewById(R.id.et_input);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -90,7 +94,9 @@ public class SendSMS extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                sendSms("7204585776", "Hi Avinash this is a test message");
+                // get phone number from EditText et_input
+                String phoneNumner = phoneNumber.getText().toString();
+                sendSms(phoneNumner, "Hi Avinash this is a test message");
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }
