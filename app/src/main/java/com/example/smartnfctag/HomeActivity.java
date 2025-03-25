@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -76,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
                     cardItemList.add(new CardItem("Navigate APP", R.drawable.navigate_app));
                     break;
                 case 5:
-                    cardItemList.add(new CardItem("Send SMS", R.drawable.send_sms));
+                    cardItemList.add(new CardItem("Send SMS", R.drawable.send_sms_page));
                     break;
                 case 6:
                     cardItemList.add(new CardItem("WIFI off", R.drawable.wifi_off));

@@ -20,6 +20,7 @@ import com.example.smartnfctag.SubFunctionality.BrightnessLowHigh;
 import com.example.smartnfctag.SubFunctionality.MakeCall;
 import com.example.smartnfctag.SubFunctionality.NavigateApp;
 import com.example.smartnfctag.SubFunctionality.NfcAnimationActivity;
+import com.example.smartnfctag.SubFunctionality.SendSMS;
 import com.example.smartnfctag.SubFunctionality.WifiOff;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -72,6 +73,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                         // call SendContact activity
                         v.getContext().startActivity(new Intent(v.getContext(), BrightnessLowHigh.class));
                         break;
+                    case 4:
+                        // call BrightnessLowHigh activity
+                        v.getContext().startActivity(new Intent(v.getContext(), SendSMS.class));
+                        break;
+                    case 6:
                     default:
                         break;
                 }
