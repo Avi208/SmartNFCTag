@@ -74,7 +74,7 @@ public class HomeActivity extends AppCompatActivity {
                     cardItemList.add(new CardItem("WIFI off", R.drawable.wifi_off));
                     break;
                 case 7:
-                    cardItemList.add(new CardItem("Send Contact/Business card", R.drawable.contact_send));
+                    cardItemList.add(new CardItem("Find Address", R.drawable.location_me));
                     break;
                 case 8:
                     cardItemList.add(new CardItem("Screen Brightness", R.drawable.screen_brightness));

@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartnfctag.SubFunctionality.BrightnessLowHigh;
+import com.example.smartnfctag.SubFunctionality.LocationAddressMe;
 import com.example.smartnfctag.SubFunctionality.MakeCall;
 import com.example.smartnfctag.SubFunctionality.NavigateApp;
 import com.example.smartnfctag.SubFunctionality.NfcAnimationActivity;
@@ -81,8 +82,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                         v.getContext().startActivity(new Intent(v.getContext(), SendSMS.class));
                         break;
                     case 6:
-                        // call PDFActivity activity
-                      //  v.getContext().startActivity(new Intent(v.getContext(), PdfViewerActivity.class));
+                       //  call LocationAddress activity
+                        v.getContext().startActivity(new Intent(v.getContext(), LocationAddressMe.class));
                         break;
                     case 8:
                         // call PDFActivity activity
