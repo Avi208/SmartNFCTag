@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
 
         cardItemList = new ArrayList<>();
         // Populate 8 sample card items (for a 2 x 4 grid)
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 10; i++) {
             switch (i) {
                 case 1:
                     cardItemList.add(new CardItem("Set Alaram", R.drawable.set_alaram));
@@ -77,6 +77,12 @@ public class HomeActivity extends AppCompatActivity {
                     cardItemList.add(new CardItem("Send Contact/Business card", R.drawable.contact_send));
                     break;
                 case 8:
+                    cardItemList.add(new CardItem("Screen Brightness", R.drawable.screen_brightness));
+                    break;
+                case 9:
+                    cardItemList.add(new CardItem("Read PDF", R.drawable.pdf_reader));
+                    break;
+                case 10:
                     cardItemList.add(new CardItem("Screen Brightness", R.drawable.screen_brightness));
                     break;
                 default:

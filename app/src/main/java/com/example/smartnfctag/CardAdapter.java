@@ -20,6 +20,7 @@ import com.example.smartnfctag.SubFunctionality.BrightnessLowHigh;
 import com.example.smartnfctag.SubFunctionality.MakeCall;
 import com.example.smartnfctag.SubFunctionality.NavigateApp;
 import com.example.smartnfctag.SubFunctionality.NfcAnimationActivity;
+import com.example.smartnfctag.SubFunctionality.PdfViewerActivity;
 import com.example.smartnfctag.SubFunctionality.SendSMS;
 import com.example.smartnfctag.SubFunctionality.SilientOffOn;
 import com.example.smartnfctag.SubFunctionality.WifiOff;
@@ -53,7 +54,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(v.getContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
                 switch (position){
                     case 1:
                        // call SilientOffOn activity
@@ -80,6 +81,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                         v.getContext().startActivity(new Intent(v.getContext(), SendSMS.class));
                         break;
                     case 6:
+                        // call PDFActivity activity
+                      //  v.getContext().startActivity(new Intent(v.getContext(), PdfViewerActivity.class));
+                        break;
+                    case 8:
+                        // call PDFActivity activity
+                        v.getContext().startActivity(new Intent(v.getContext(), PdfViewerActivity.class));
+                        break;
                     default:
                         break;
                 }
