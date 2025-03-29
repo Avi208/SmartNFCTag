@@ -34,6 +34,7 @@ public class SendSMS extends AppCompatActivity {
     private static final int REQUEST_WIFI_PERMISSION = 1;
     private int REQUEST_SMS_PERMISSION= 100;
     private EditText phoneNumber;
+    private EditText UserMessage;
 
 
     @Override
@@ -41,6 +42,7 @@ public class SendSMS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_sms);
         phoneNumber= findViewById(R.id.et_input);
+        UserMessage= findViewById(R.id.mess_input);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -96,7 +98,8 @@ public class SendSMS extends AppCompatActivity {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
                 // get phone number from EditText et_input
                 String phoneNumner = phoneNumber.getText().toString();
-                sendSms(phoneNumner, "Hi Avinash this is a test message");
+                String userMessageText = UserMessage.getText().toString();
+                sendSms(phoneNumner, userMessageText);
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

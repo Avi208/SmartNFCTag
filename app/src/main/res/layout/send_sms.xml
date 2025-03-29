@@ -43,6 +43,16 @@
             android:layout_marginTop="5dp"
             android:textSize="16sp"
             android:hint="7204585776" />
+        <EditText
+            android:id="@+id/mess_input"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            android:hint="Enter Message here " />
 
         <!-- Button Row -->
         <LinearLayout

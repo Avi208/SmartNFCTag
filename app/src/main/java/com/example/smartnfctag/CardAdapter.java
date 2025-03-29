@@ -23,6 +23,7 @@ import com.example.smartnfctag.SubFunctionality.NavigateApp;
 import com.example.smartnfctag.SubFunctionality.NfcAnimationActivity;
 import com.example.smartnfctag.SubFunctionality.PdfViewerActivity;
 import com.example.smartnfctag.SubFunctionality.SendSMS;
+import com.example.smartnfctag.SubFunctionality.SetAlaram;
 import com.example.smartnfctag.SubFunctionality.SilientOffOn;
 import com.example.smartnfctag.SubFunctionality.WifiOff;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -57,6 +58,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
                 switch (position){
+                    case 0:
+                        // call SilientOffOn activity
+                        v.getContext().startActivity(new Intent(v.getContext(), SetAlaram.class));
+                        break;
                     case 1:
                        // call SilientOffOn activity
                         v.getContext().startActivity(new Intent(v.getContext(), SilientOffOn.class));
