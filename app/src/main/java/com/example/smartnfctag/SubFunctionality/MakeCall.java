@@ -38,6 +38,7 @@ public class MakeCall extends AppCompatActivity {
     private IntentFilter[] intentFiltersArray;
     private static final int REQUEST_CALL_PHONE = 1;
     private EditText phoneNumber;
+    private Button okButton;
 
 
     @Override
@@ -45,10 +46,18 @@ public class MakeCall extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.make_call);
         phoneNumber= findViewById(R.id.et_input);
+        okButton= findViewById(R.id.btnOk);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE);
         }
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
