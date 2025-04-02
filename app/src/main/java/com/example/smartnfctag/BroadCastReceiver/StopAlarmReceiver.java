@@ -1,4 +1,4 @@
-package com.example.smartnfctag.SubFunctionality;
+package com.example.smartnfctag.BroadCastReceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
+
+import com.example.smartnfctag.SubFunctionality.AlarmReceiver;
 
 public class StopAlarmReceiver extends BroadcastReceiver {
 

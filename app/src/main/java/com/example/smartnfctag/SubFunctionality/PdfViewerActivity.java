@@ -29,8 +29,8 @@ public class PdfViewerActivity extends AppCompatActivity {
     private  NfcAdapter nfcAdapter;
 
 
-  //  private static final String PDF_URL = "https://drive.google.com/file/d/1z201KNOge2HsLxU7sUX6Q9TZYdRbgDjI/view?usp=sharing"; // Replace with your actual link
-    private static final String PDF_URL = "https://drive.google.com/file/d/1UM984JHK9SV1Iuk2SRS6lPgadwk41f5o/view?usp=sharing"; // Replace with your actual link
+  private static final String PDF_URL = "https://drive.google.com/file/d/1z201KNOge2HsLxU7sUX6Q9TZYdRbgDjI/view?usp=sharing"; // Replace with your actual link
+  //  private static final String PDF_URL = "https://drive.google.com/file/d/1UM984JHK9SV1Iuk2SRS6lPgadwk41f5o/view?usp=sharing"; // Replace with your actual link
     private LinearLayout beforeContainer;
 
     @Override

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.Manifest;
@@ -35,6 +36,7 @@ public class SendSMS extends AppCompatActivity {
     private int REQUEST_SMS_PERMISSION= 100;
     private EditText phoneNumber;
     private EditText UserMessage;
+    private Button okButton;
 
 
     @Override
@@ -42,6 +44,7 @@ public class SendSMS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_sms);
         phoneNumber= findViewById(R.id.et_input);
+        okButton= findViewById(R.id.btnOk);
         UserMessage= findViewById(R.id.mess_input);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
@@ -50,7 +53,13 @@ public class SendSMS extends AppCompatActivity {
                     new String[]{Manifest.permission.SEND_SMS},
                     REQUEST_SMS_PERMISSION);
         }
-
+       
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

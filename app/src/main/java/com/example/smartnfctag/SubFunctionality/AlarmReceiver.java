@@ -10,11 +10,11 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Vibrator;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.example.smartnfctag.BroadCastReceiver.StopAlarmReceiver;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

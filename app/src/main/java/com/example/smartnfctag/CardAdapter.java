@@ -94,6 +94,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                         // call PDFActivity activity
                         v.getContext().startActivity(new Intent(v.getContext(), PdfViewerActivity.class));
                         break;
+                    case 9:
+                        // call PDFActivity activity
+                        v.getContext().startActivity(new Intent(v.getContext(), PdfViewerActivity.class));
+                        break;
                     default:
                         break;
                 }
