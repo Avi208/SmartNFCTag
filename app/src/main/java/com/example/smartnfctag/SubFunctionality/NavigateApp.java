@@ -14,6 +14,8 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -33,16 +35,24 @@ public class NavigateApp extends AppCompatActivity {
     private IntentFilter[] intentFiltersArray;
     private static final int REQUEST_CALL_PHONE = 1;
     private static final String YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v=-Drt3YeIMuc"; // Replace with your video link
+    private Button okButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigate_app);
+        okButton= findViewById(R.id.btnOk);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE);
         }
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
     }

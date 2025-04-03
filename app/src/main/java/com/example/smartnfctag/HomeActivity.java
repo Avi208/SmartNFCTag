@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
                     cardItemList.add(new CardItem("Read Doc", R.drawable.pdf_reader));
                     break;
                 case 10:
-                    cardItemList.add(new CardItem("Screen Brightness", R.drawable.screen_brightness));
+                    cardItemList.add(new CardItem("Read Message", R.drawable.message));
                     break;
                 default:
                     cardItemList.add(new CardItem(" Default " + i, R.drawable.ic_launcher_foreground));

@@ -113,6 +113,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SubFunctionality.PdfViewerActivity"/>
+        <activity android:name=".SubFunctionality.ReadMessage"/>
         <receiver android:name=".SubFunctionality.AlarmReceiver"/>
         <receiver android:name=".BroadCastReceiver.StopAlarmReceiver"/>
     </application>

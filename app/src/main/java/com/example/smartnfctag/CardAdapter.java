@@ -22,6 +22,7 @@ import com.example.smartnfctag.SubFunctionality.MakeCall;
 import com.example.smartnfctag.SubFunctionality.NavigateApp;
 import com.example.smartnfctag.SubFunctionality.NfcAnimationActivity;
 import com.example.smartnfctag.SubFunctionality.PdfViewerActivity;
+import com.example.smartnfctag.SubFunctionality.ReadMessage;
 import com.example.smartnfctag.SubFunctionality.SendSMS;
 import com.example.smartnfctag.SubFunctionality.SetAlaram;
 import com.example.smartnfctag.SubFunctionality.SilientOffOn;
@@ -96,7 +97,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                         break;
                     case 9:
                         // call PDFActivity activity
-                        v.getContext().startActivity(new Intent(v.getContext(), PdfViewerActivity.class));
+                        v.getContext().startActivity(new Intent(v.getContext(), ReadMessage.class));
                         break;
                     default:
                         break;

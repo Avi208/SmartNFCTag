@@ -1,15 +1,19 @@
 package com.example.smartnfctag.SubFunctionality;
 
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.Manifest;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -37,6 +42,11 @@ public class SendSMS extends AppCompatActivity {
     private EditText phoneNumber;
     private EditText UserMessage;
     private Button okButton;
+    private Button btnSelectContact;
+    private static final int REQUEST_CODE_PICK_CONTACT = 1;
+    private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 100;
+
+
 
 
     @Override
@@ -45,6 +55,7 @@ public class SendSMS extends AppCompatActivity {
         setContentView(R.layout.send_sms);
         phoneNumber= findViewById(R.id.et_input);
         okButton= findViewById(R.id.btnOk);
+        btnSelectContact = findViewById(R.id.btnSelectContact);
         UserMessage= findViewById(R.id.mess_input);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
@@ -60,7 +71,27 @@ public class SendSMS extends AppCompatActivity {
                 finish();
             }
         });
+        btnSelectContact.setOnClickListener(v -> {
+            if (checkPermission()) {
+                openContactPicker();
+            } else {
+                requestPermission();
+            }
+        });
 
+    }
+    private boolean checkPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                REQUEST_CODE_PERMISSION_READ_CONTACTS);
+    }
+    private void openContactPicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_PICK_CONTACT);
     }
 
     @Override
@@ -135,6 +166,49 @@ public class SendSMS extends AppCompatActivity {
         } else {
             Toast.makeText(this, "SMS permission not granted", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PICK_CONTACT && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                Uri contactUri = data.getData();
+                String contactNumber = getContactNumber(contactUri);
+
+                if (contactNumber != null) {
+                    phoneNumber.setText(contactNumber);
+                } else {
+                    Toast.makeText(this, "No phone number found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+    private String getContactNumber(Uri contactUri) {
+        String phoneNumber = null;
+        Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID);
+            int hasPhoneIndex = cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER);
+            String contactId = cursor.getString(idIndex);
+
+            if (cursor.getInt(hasPhoneIndex) > 0) {
+                Cursor phoneCursor = getContentResolver().query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                        new String[]{contactId},
+                        null);
+
+                if (phoneCursor != null && phoneCursor.moveToFirst()) {
+                    int numberIndex = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                    phoneNumber = phoneCursor.getString(numberIndex);
+                    phoneCursor.close();
+                }
+            }
+            cursor.close();
+        }
+        return phoneNumber;
     }
 
 
