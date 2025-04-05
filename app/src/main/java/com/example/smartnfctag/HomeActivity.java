@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
 
         cardItemList = new ArrayList<>();
         // Populate 8 sample card items (for a 2 x 4 grid)
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 12; i++) {
             switch (i) {
                 case 1:
                     cardItemList.add(new CardItem("Set Alaram", R.drawable.set_alaram));
@@ -84,6 +84,12 @@ public class HomeActivity extends AppCompatActivity {
                     break;
                 case 10:
                     cardItemList.add(new CardItem("Read Message", R.drawable.message));
+                    break;
+                case 11:
+                    cardItemList.add(new CardItem("Social Media", R.drawable.inst_face));
+                    break;
+                case 12:
+                    cardItemList.add(new CardItem("Volume +/-", R.drawable.message));
                     break;
                 default:
                     cardItemList.add(new CardItem(" Default " + i, R.drawable.ic_launcher_foreground));

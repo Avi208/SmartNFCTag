@@ -26,6 +26,7 @@ import com.example.smartnfctag.SubFunctionality.ReadMessage;
 import com.example.smartnfctag.SubFunctionality.SendSMS;
 import com.example.smartnfctag.SubFunctionality.SetAlaram;
 import com.example.smartnfctag.SubFunctionality.SilientOffOn;
+import com.example.smartnfctag.SubFunctionality.SocialMedial;
 import com.example.smartnfctag.SubFunctionality.WifiOff;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -98,6 +99,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                     case 9:
                         // call PDFActivity activity
                         v.getContext().startActivity(new Intent(v.getContext(), ReadMessage.class));
+                        break;
+                    case 10:
+                        // call SocialMedial activity
+                        v.getContext().startActivity(new Intent(v.getContext(), SocialMedial.class));
                         break;
                     default:
                         break;
