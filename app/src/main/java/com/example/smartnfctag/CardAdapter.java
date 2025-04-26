@@ -25,6 +25,7 @@ import com.example.smartnfctag.SubFunctionality.PdfViewerActivity;
 import com.example.smartnfctag.SubFunctionality.ReadMessage;
 import com.example.smartnfctag.SubFunctionality.SendSMS;
 import com.example.smartnfctag.SubFunctionality.SetAlaram;
+import com.example.smartnfctag.SubFunctionality.ShareContact;
 import com.example.smartnfctag.SubFunctionality.SilientOffOn;
 import com.example.smartnfctag.SubFunctionality.SocialMedial;
 import com.example.smartnfctag.SubFunctionality.WifiOff;
@@ -103,6 +104,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                     case 10:
                         // call SocialMedial activity
                         v.getContext().startActivity(new Intent(v.getContext(), SocialMedial.class));
+                        break;
+                    case 11:
+                        // call SocialMedial activity
+                        v.getContext().startActivity(new Intent(v.getContext(), ShareContact.class));
                         break;
                     default:
                         break;

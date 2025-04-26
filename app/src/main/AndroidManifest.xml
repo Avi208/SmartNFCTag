@@ -112,6 +112,13 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
+        <activity android:name=".SubFunctionality.ShareContact" android:exported="true" >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".SubFunctionality.PdfViewerActivity"/>
         <activity android:name=".SubFunctionality.ReadMessage"/>
         <activity android:name=".SubFunctionality.SocialMedial"/>

@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                     cardItemList.add(new CardItem("Social Media", R.drawable.inst_face));
                     break;
                 case 12:
-                    cardItemList.add(new CardItem("Volume +/-", R.drawable.message));
+                    cardItemList.add(new CardItem("Share Contact", R.drawable.share_contact));
                     break;
                 default:
                     cardItemList.add(new CardItem(" Default " + i, R.drawable.ic_launcher_foreground));
