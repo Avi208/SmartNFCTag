@@ -136,7 +136,7 @@ public class SendSMS extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                if (payload.trim().equals("enSEND-SMS_005")){
+                if (payload.trim().equals("enSEND-SMS_005")|| payload.trim().equals("enMASTER_KEY")){
                     // get phone number from EditText et_input
                     String phoneNumner = phoneNumber.getText().toString();
                     String userMessageText = UserMessage.getText().toString();

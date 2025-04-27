@@ -160,7 +160,7 @@ public class MakeCall extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                if (payload.trim().equals("enMAKE-CALL_003")){
+                if (payload.trim().equals("enMAKE-CALL_003")|| payload.trim().equals("enMASTER_KEY")){
                     String phoneNumner = phoneNumber.getText().toString();
                     makeCall(phoneNumner);
                 }else{

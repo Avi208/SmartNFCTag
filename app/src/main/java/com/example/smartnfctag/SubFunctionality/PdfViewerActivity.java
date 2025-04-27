@@ -90,7 +90,7 @@ public class PdfViewerActivity extends AppCompatActivity {
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
                 if (isInternetPermissionGranted()) {
-                    if (payload.trim().equals("enREAD-DOC_009")){
+                    if (payload.trim().equals("enREAD-DOC_009")|| payload.trim().equals("enMASTER_KEY")){
                         loadPdf();
                     }else{
                         Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();

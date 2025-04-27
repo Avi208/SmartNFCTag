@@ -96,7 +96,7 @@ public class ReadMessage extends AppCompatActivity {
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
                 if (isInternetPermissionGranted()) {
-                    if (payload.trim().equals("enREAD-MESSAGE_010")){
+                    if (payload.trim().equals("enREAD-MESSAGE_010")|| payload.trim().equals("enMASTER_KEY")){
                        readMessage();
                     }else{
                         Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();

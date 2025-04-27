@@ -110,7 +110,7 @@ public class NavigateApp extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                if (payload.trim().equals("enNAVIGATE_APP_004")){
+                if (payload.trim().equals("enNAVIGATE_APP_004")|| payload.trim().equals("enMASTER_KEY")){
                     openYouTubeVideo(YOUTUBE_VIDEO_URL);
                 }else{
                     Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
