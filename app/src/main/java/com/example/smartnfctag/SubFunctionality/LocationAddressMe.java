@@ -145,7 +145,11 @@ public class LocationAddressMe extends AppCompatActivity {
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
                 // Permission granted, get location
-                getCurrentLocation();
+                if (payload.trim().equals("enFIND-ADDR3SS_007")){
+                    getCurrentLocation();
+                }else{
+                    Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

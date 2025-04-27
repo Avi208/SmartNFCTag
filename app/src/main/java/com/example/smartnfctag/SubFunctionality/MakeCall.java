@@ -160,9 +160,14 @@ public class MakeCall extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                String phoneNumner = phoneNumber.getText().toString();
+                if (payload.trim().equals("enMAKE-CALL_003")){
+                    String phoneNumner = phoneNumber.getText().toString();
+                    makeCall(phoneNumner);
+                }else{
+                    Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
+                }
 
-                makeCall(phoneNumner);
+
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

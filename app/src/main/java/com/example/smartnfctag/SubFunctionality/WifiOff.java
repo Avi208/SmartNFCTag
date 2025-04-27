@@ -129,7 +129,11 @@ public class WifiOff extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                disableWifi();
+                if (payload.trim().equals("enWIFI_OFF_006")){
+                   disableWifi();
+                }else{
+                    Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

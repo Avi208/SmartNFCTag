@@ -109,7 +109,11 @@ public class ShareContact extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                shareContact();
+                if (payload.trim().equals("enSHARE-CONTACT_012")){
+                    shareContact();
+                }else{
+                    Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

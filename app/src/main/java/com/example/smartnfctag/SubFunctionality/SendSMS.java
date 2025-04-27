@@ -136,10 +136,15 @@ public class SendSMS extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                // get phone number from EditText et_input
-                String phoneNumner = phoneNumber.getText().toString();
-                String userMessageText = UserMessage.getText().toString();
-                sendSms(phoneNumner, userMessageText);
+                if (payload.trim().equals("enSEND-SMS_005")){
+                    // get phone number from EditText et_input
+                    String phoneNumner = phoneNumber.getText().toString();
+                    String userMessageText = UserMessage.getText().toString();
+                    sendSms(phoneNumner, userMessageText);
+                }else{
+                    Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
+                }
+
             } else {
                 Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
             }

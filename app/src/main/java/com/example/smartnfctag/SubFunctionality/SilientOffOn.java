@@ -15,6 +15,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -98,42 +99,18 @@ public class SilientOffOn extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if (detectedTag != null) {
-                readNfcTag(detectedTag);
-                // writeTag(detectedTag, "Silent Mode Trigger");
-            }
-        }
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            if (detectedTag != null) {
-                writeTag(detectedTag, "Silent Mode Trigger");
-            }
-        }
-    }
-    private void writeTag(Tag tag, String message) {
-        NdefMessage ndefMessage = createNdefMessage(message);
-
-        try {
-            Ndef ndef = Ndef.get(tag);
-            if (ndef != null) {
-                ndef.connect();
-                if (ndef.isWritable()) {
-                    ndef.writeNdefMessage(ndefMessage);
-                 //   Toast.makeText(this, "Write to NFC successful!", Toast.LENGTH_SHORT).show();
-                    setPhoneToSilent(setSlientFlag);
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            if (tag != null) {
+                Ndef ndef = Ndef.get(tag);
+                if (ndef != null) {
+                    readNfcTag(ndef);
                 } else {
-                    Toast.makeText(this, "NFC tag is read-only", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "NFC tag is not NDEF formatted.", Toast.LENGTH_SHORT).show();
                 }
-                ndef.close();
-            } else {
-                Toast.makeText(this, "NFC tag is not supported", Toast.LENGTH_SHORT).show();
             }
-        } catch (IOException | FormatException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Write failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
     private NdefMessage createNdefMessage(String text) {
         NdefRecord ndefRecord = NdefRecord.createTextRecord("en", text);
         return new NdefMessage(new NdefRecord[]{ndefRecord});
@@ -163,24 +140,29 @@ public class SilientOffOn extends AppCompatActivity {
 
 
     // Read NFC tag and display content in Toast
-    private void readNfcTag(Tag tag) {
-        Ndef ndef = Ndef.get(tag);
-        if (ndef != null) {
-            try {
-                ndef.connect();
-                NdefMessage ndefMessage = ndef.getNdefMessage();
-                NdefRecord[] records = ndefMessage.getRecords();
-
-                for (NdefRecord record : records) {
-                    if (Arrays.equals(record.getType(), NdefRecord.RTD_TEXT)) {
-                        String payload = new String(record.getPayload(), "UTF-8");
-                        Toast.makeText(this, "NFC Message: " + payload, Toast.LENGTH_LONG).show();
-                    }
+    private void readNfcTag(Ndef ndef) {
+        try {
+            ndef.connect();
+            NdefMessage ndefMessage = ndef.getNdefMessage();
+            if (ndefMessage != null) {
+                String payload = new String(ndefMessage.getRecords()[0].getPayload());
+                if (payload.trim().equals("enSEND-SMS_005")){
+                  setPhoneToSilent(setSlientFlag);
+                }else{
+                    Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
                 }
+
+            } else {
+                Toast.makeText(this, "NFC tag is empty.", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.d("TestingLogs", e.toString());
+            Toast.makeText(this, "Failed to read NFC tag.", Toast.LENGTH_SHORT).show();
+        } finally {
+            try {
                 ndef.close();
             } catch (Exception e) {
-                Toast.makeText(this, "Error reading NFC tag!", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
+                // Ignore
             }
         }
     }

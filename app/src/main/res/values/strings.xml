@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">SmartNFCTag</string>
+    <string name="set_alaram_001">SET_ALAR@M_001</string>
+    <string name="silient_phone_002">SILIENT-PH#NE_002</string>
+    <string name="make_call_003">enMAKE-CALL_003</string>
+    <string name="navigate_app_004">NAVIGATE_APP_004</string>
+    <string name="send_sms_005">SEND-SMS_005</string>
+    <string name="wifi_off_006">WIFI_OFF_006</string>
+    <string name="find_address_007">FIND-ADDR3SS_007</string>
+    <string name="screen_bright_008">SCREEN-BRIGHT_008</string>
+    <string name="read_doc_009">READ-DOC_009</string>
+    <string name="read_message_010">READ-MESSAGE_010</string>
+    <string name="social_media_011">SOCIAL-MEDIA_011</string>
+    <string name="share_contact_012">SHARE-CONTACT_012</string>
+    <string name="default_i_013">DEFAULT-i_013</string>
+
     <string name="write"><b>NFC Technology: Unlocking Powerful Possibilities. </b> \n\nNear Field Communication (NFC) is a powerful technology that allows
         seamless data transfer between devices. With an Android phone, you can easily write information to NFC stickers,
         enabling quick and efficient sharing of data. Here are some key points to consider \n\nConvenience: NFC stickers can store various types of data, such as URLs, contact information, and text messages, making them versatile for different applications.\nEase of Use: Writing to NFC stickers is straightforward and can be done with just a few taps on your Android phone.\nSecurity: NFC technology includes encryption features, ensuring that the data transferred is secure and protected.\nAutomation: NFC stickers can trigger actions on your phone, such as opening apps or changing settings, enhancing your daily routines.\nCompatibility: Most modern Android phones support NFC, making it accessible to a wide range of users.\nInnovation: NFC technology continues to evolve, offering new and exciting possibilities for personal and professional use.\n</string>
