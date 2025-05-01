@@ -116,6 +116,7 @@ public class SilientOffOn extends AppCompatActivity {
         return new NdefMessage(new NdefRecord[]{ndefRecord});
     }
 
+
     private void setPhoneToSilent(boolean setSlientFlag) {
        // if setSlientFlag is true make setRingMode Ring if false make RINGER_MODE_SILENT
         if (setSlientFlag){
@@ -146,7 +147,7 @@ public class SilientOffOn extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if (ndefMessage != null) {
                 String payload = new String(ndefMessage.getRecords()[0].getPayload());
-                if (payload.trim().equals("enSEND-SMS_005")){
+                if (payload.trim().equals("enSEND-SMS_005")|| payload.trim().equals("enMASTER_KEY")){
                   setPhoneToSilent(setSlientFlag);
                 }else{
                     Toast.makeText(this, "NFC Tag Invalid, Contact Administrator! ", Toast.LENGTH_SHORT).show();
@@ -169,7 +170,6 @@ public class SilientOffOn extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         Intent intent = new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         // prepare pending intent
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -177,18 +177,15 @@ public class SilientOffOn extends AppCompatActivity {
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
                 PendingIntent.FLAG_MUTABLE // or FLAG_IMMUTABLE depending on your use case
         );        // enable foreground dispatch
-        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        IntentFilter[] writeTagFilters = new IntentFilter[]{tagDetected};
-
         if (nfcAdapter != null) {
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
     }
-
-    // Disable foreground NFC dispatch
     @Override
     protected void onPause() {
         super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
+        if (nfcAdapter != null) {
+            nfcAdapter.disableForegroundDispatch(this);
+        }
     }
 }
